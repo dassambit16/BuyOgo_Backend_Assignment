@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrainingCenterService {
@@ -31,5 +32,9 @@ public class TrainingCenterService {
 
     public List<TrainingCenter> getAllTrainingCenters() {
         return trainingCenterRepository.findAll();
+    }
+
+    public Optional<List<TrainingCenter>> getTrainingCenterByCode(String centerCode) {
+        return trainingCenterRepository.findByCenterCode(centerCode);
     }
 }

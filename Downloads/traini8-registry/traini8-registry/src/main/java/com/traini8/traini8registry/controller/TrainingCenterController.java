@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Validated
@@ -43,6 +44,12 @@ public class TrainingCenterController {
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(List.of());
         }
+    }
+
+    @GetMapping("/training-centers/{centerCode}")
+    public ResponseEntity<List<TrainingCenter>> getTrainingCenterByCode(@PathVariable String centerCode) {
+        Optional<List<TrainingCenter>> trainingCenter = trainingCenterService.getTrainingCenterByCode(centerCode);
+        return trainingCenter.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }
